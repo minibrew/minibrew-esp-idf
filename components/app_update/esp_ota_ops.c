@@ -376,12 +376,14 @@ esp_err_t esp_ota_set_boot_partition(const esp_partition_t *partition)
         return ESP_ERR_OTA_VALIDATE_FAILED;
     }
 
+    if (esp_secure_boot_enabled()) {
 #ifdef CONFIG_SECURE_SIGNED_ON_UPDATE
     esp_err_t ret = esp_secure_boot_verify_signature(partition->address, data.image_len);
     if (ret != ESP_OK) {
         return ESP_ERR_OTA_VALIDATE_FAILED;
     }
 #endif
+    }
     // if set boot partition to factory bin ,just format ota info partition
     if (partition->type == ESP_PARTITION_TYPE_APP) {
         if (partition->subtype == ESP_PARTITION_SUBTYPE_APP_FACTORY) {

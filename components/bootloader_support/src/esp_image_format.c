@@ -605,6 +605,9 @@ static esp_err_t verify_secure_boot_signature(bootloader_sha256_handle_t sha_han
                 ESP_LOGW(TAG, "image corrupted on flash");
             } else {
                 ESP_LOGW(TAG, "image valid, signature bad");
+                if (!esp_secure_boot_enabled()) {
+                	return ESP_OK;
+                }
             }
         }
         return ESP_ERR_IMAGE_INVALID;
