@@ -111,4 +111,8 @@ bool ets_use_secure_boot_v2();
 
 #endif /* CONFIG_ESP32_REV_MIN_3 */
 
+#ifdef __cplusplus
+}
+#endif
+
 #endif /* _ROM_SECURE_BOOT_H_ */
